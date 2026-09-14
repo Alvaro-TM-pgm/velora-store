@@ -1,0 +1,10 @@
+import type { Product } from './data';
+export type CartLine={product:Product; quantity:number; size:string};
+const key='velora-cart', favKey='velora-favorites', orderKey='velora-orders';
+const read=<T,>(name:string, fallback:T):T=>{ try{return JSON.parse(localStorage.getItem(name)||'') as T}catch{return fallback} };
+export const cart=()=>read<CartLine[]>(key,[]);
+export const saveCart=(v:CartLine[])=>localStorage.setItem(key,JSON.stringify(v));
+export const favorites=()=>read<number[]>(favKey,[]);
+export const saveFavorites=(v:number[])=>localStorage.setItem(favKey,JSON.stringify(v));
+export const orders=()=>read<{id:string;total:number;createdAt:string;status:string}[]>(orderKey,[]);
+export const saveOrder=(o:{id:string;total:number;createdAt:string;status:string})=>localStorage.setItem(orderKey,JSON.stringify([o,...orders()]));
