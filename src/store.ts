@@ -8,3 +8,6 @@ export const favorites=()=>read<number[]>(favKey,[]);
 export const saveFavorites=(v:number[])=>localStorage.setItem(favKey,JSON.stringify(v));
 export const orders=()=>read<{id:string;total:number;createdAt:string;status:string}[]>(orderKey,[]);
 export const saveOrder=(o:{id:string;total:number;createdAt:string;status:string})=>localStorage.setItem(orderKey,JSON.stringify([o,...orders()]));
+export const saveOrders=(v:{id:string;total:number;createdAt:string;status:string}[])=>localStorage.setItem(orderKey,JSON.stringify(v));
+export const adminEnabled=()=>localStorage.getItem('velora-admin-demo')==='true';
+export const setAdminEnabled=(v:boolean)=>localStorage.setItem('velora-admin-demo',String(v));

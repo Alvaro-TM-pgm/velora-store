@@ -1,4 +1,4 @@
-export type Product = { id:number; name:string; slug:string; category:string; price:number; old?:number; color:string; sizes:string[]; image:string; description:string; stock:number; badge?:string };
+export type Product = { id:number; name:string; slug:string; category:string; price:number; old?:number; color:string; sizes:string[]; image:string; description:string; stock:number; badge?:string; active?:boolean };
 const img=(id:number)=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&q=80`;
 export const products:Product[] = [
  {id:1,name:'Essential Tee',slug:'essential-tee',category:'Camisetas',price:89.9,old:109.9,color:'Off-white',sizes:['P','M','G','GG'],stock:18,badge:'Novo',image:img(1521572163474),description:'Algodão premium, caimento essencial e acabamento macio.'},
@@ -15,3 +15,6 @@ export const products:Product[] = [
  {id:12,name:'Soft Knit',slug:'soft-knit',category:'Moletons',price:179.9,color:'Creme',sizes:['P','M','G'],stock:14,image:img(1576566588028),description:'Tricô de toque suave e modelagem confortável.'},
 ];
 export const categories=['Camisetas','Calças','Vestidos','Moletons','Jaquetas','Acessórios'];
+const productKey='velora-products';
+export const loadProducts=():Product[]=>{try{return JSON.parse(localStorage.getItem(productKey)||'') as Product[]||products}catch{return products}};
+export const saveProducts=(items:Product[])=>localStorage.setItem(productKey,JSON.stringify(items));
